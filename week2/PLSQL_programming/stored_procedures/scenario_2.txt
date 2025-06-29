@@ -1,0 +1,35 @@
+step 1:
+CREATE TABLE staff_details (
+    staff_id    NUMBER PRIMARY KEY,
+    full_name   VARCHAR2(100),
+    dept        VARCHAR2(50),
+    base_salary NUMBER(10,2)
+);
+
+step 2:
+INSERT INTO staff_details VALUES (101, 'Kiran', 'ADMIN', 28000);
+INSERT INTO staff_details VALUES (102, 'Sneha', 'SALES', 36000);
+INSERT INTO staff_details VALUES (103, 'Ramesh', 'ADMIN', 31000);
+INSERT INTO staff_details VALUES (104, 'Leena', 'TECH', 42000);
+
+step 3:
+CREATE OR REPLACE PROCEDURE AddDeptBonus (
+    target_dept     IN VARCHAR2,
+    percent_bonus   IN NUMBER  -- e.g., 15 means 15% increment
+) IS
+BEGIN
+    UPDATE staff_details
+    SET base_salary = base_salary + (base_salary * percent_bonus / 100)
+    WHERE dept = target_dept;
+
+    COMMIT;
+
+    DBMS_OUTPUT.PUT_LINE('A ' || percent_bonus || '% bonus has been added to all employees in ' || target_dept || ' department.');
+END;
+/
+
+step 4: Calling the procedure with specific department and bonus percentage
+BEGIN
+    AddDeptBonus('ADMIN', 15);  -- Give 15% bonus to all ADMIN staff
+END;
+/

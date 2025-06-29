@@ -1,0 +1,32 @@
+step 1:
+CREATE TABLE saving_accts (
+    acct_id       NUMBER PRIMARY KEY,
+    holder_name   VARCHAR2(100),
+    acct_balance  NUMBER(12,2),
+    acct_type     VARCHAR2(20) -- e.g., 'SAVINGS', 'CURRENT'
+);
+
+step 2:
+INSERT INTO saving_accts VALUES (201, 'Kiran', 11000.00, 'SAVINGS');
+INSERT INTO saving_accts VALUES (202, 'Meera', 16000.00, 'SAVINGS');
+INSERT INTO saving_accts VALUES (203, 'Tarun', 21000.00, 'CURRENT');
+INSERT INTO saving_accts VALUES (204, 'Neha',  13000.00, 'SAVINGS');
+
+step 3:
+CREATE OR REPLACE PROCEDURE ApplyMonthlyBonus IS
+BEGIN
+    UPDATE saving_accts
+    SET acct_balance = acct_balance + (acct_balance * 0.01)
+    WHERE acct_type = 'SAVINGS';
+
+    COMMIT;
+
+    DBMS_OUTPUT.PUT_LINE('Interest bonus applied to all savings-type accounts.');
+END;
+/
+
+step 4 : Executing the updated procedure
+BEGIN
+    ApplyMonthlyBonus;
+END;
+/

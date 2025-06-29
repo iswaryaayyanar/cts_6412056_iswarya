@@ -1,0 +1,29 @@
+step 1: Create a new table for client accounts
+CREATE TABLE client_accounts (
+    client_id NUMBER PRIMARY KEY,
+    full_name VARCHAR2(100),
+    account_balance NUMBER(10,2),
+    vip_status CHAR(1) DEFAULT 'N'  -- 'Y' means VIP
+);
+
+step 2 : Insert sample client records
+INSERT INTO client_accounts VALUES (101, 'Kiran', 8700, 'N');
+INSERT INTO client_accounts VALUES (102, 'Meera', 12250, 'N');
+INSERT INTO client_accounts VALUES (103, 'Vinod', 14500, 'N');
+INSERT INTO client_accounts VALUES (104, 'Latha', 9800, 'N');
+
+step 3 :
+BEGIN
+    FOR cust IN (SELECT client_id, account_balance FROM client_accounts) LOOP
+        IF cust.account_balance > 10000 THEN
+            UPDATE client_accounts
+            SET vip_status = 'Y'
+            WHERE client_id = cust.client_id;
+
+            DBMS_OUTPUT.PUT_LINE('Client #' || cust.client_id || ' now marked as VIP.');
+        END IF;
+    END LOOP;
+
+    COMMIT;
+END;
+/

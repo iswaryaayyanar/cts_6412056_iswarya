@@ -1,0 +1,29 @@
+step1:
+CREATE TABLE customer_due (
+    cust_id     NUMBER PRIMARY KEY,
+    cust_name   VARCHAR2(100),
+    loan_ref    NUMBER,
+    due_on      DATE
+);
+
+step2 : Updated sample data (Assume today is 28-June-2025)
+INSERT INTO customer_due VALUES (11, 'Vikram',   301, TO_DATE('07-JUL-2025', 'DD-MON-YYYY'));
+INSERT INTO customer_due VALUES (12, 'Pooja',    302, TO_DATE('26-JUL-2025', 'DD-MON-YYYY'));
+INSERT INTO customer_due VALUES (13, 'Ajay',     303, TO_DATE('03-AUG-2025', 'DD-MON-YYYY'));
+INSERT INTO customer_due VALUES (14, 'Neha',     304, TO_DATE('22-AUG-2025', 'DD-MON-YYYY'));
+
+step3 : 
+DECLARE
+    CURSOR reminder_cursor IS
+        SELECT cust_id, cust_name, loan_ref, due_on
+        FROM customer_due
+        WHERE due_on BETWEEN SYSDATE AND SYSDATE + 30;
+
+BEGIN
+    FOR due_rec IN reminder_cursor LOOP
+        DBMS_OUTPUT.PUT_LINE('Heads up, ' || due_rec.cust_name ||
+                             '! Your loan (Ref: ' || due_rec.loan_ref ||
+                             ') is scheduled for repayment on ' || TO_CHAR(due_rec.due_on, 'DD-MON-YYYY') || '.');
+    END LOOP;
+END;
+/

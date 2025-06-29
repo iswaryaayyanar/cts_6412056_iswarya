@@ -1,0 +1,60 @@
+step 1:
+CREATE TABLE client_accounts2 (
+    acct_no        NUMBER PRIMARY KEY,
+    holder_name    VARCHAR2(100),
+    acct_balance   NUMBER(12,2)
+);
+
+step 2:
+INSERT INTO client_accounts2 VALUES (2001, 'Naveen', 18000);
+INSERT INTO client_accounts2 VALUES (2002, 'Pooja',   9500);
+INSERT INTO client_accounts2 VALUES (2003, 'Tarun',   14000);
+
+step 3: 
+CREATE OR REPLACE PROCEDURE MoveFunds (
+    from_acct IN NUMBER,
+    to_acct   IN NUMBER,
+    amt       IN NUMBER
+) IS
+    available_balance NUMBER;
+BEGIN
+    -- Fetch balance of sender's account
+    SELECT acct_balance INTO available_balance
+    FROM client_accounts2
+    WHERE acct_no = from_acct;
+
+    -- Insufficient balance check
+    IF available_balance < amt THEN
+        RAISE_APPLICATION_ERROR(-20101, 'Transfer failed: Not enough balance in source account.');
+    END IF;
+
+    -- Debit sender's account
+    UPDATE client_accounts2
+    SET acct_balance = acct_balance - amt
+    WHERE acct_no = from_acct;
+
+    -- Credit receiver's account
+    UPDATE client_accounts2
+    SET acct_balance = acct_balance + amt
+    WHERE acct_no = to_acct;
+
+    COMMIT;
+
+    -- Success message
+    DBMS_OUTPUT.PUT_LINE('₹' || amt || ' successfully moved from Account #' || from_acct ||
+                         ' to Account #' || to_acct || '.');
+
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        RAISE_APPLICATION_ERROR(-20102, 'Error: One or both account numbers are invalid.');
+    WHEN OTHERS THEN
+        ROLLBACK;
+        RAISE;
+END;
+/
+
+step 4:
+BEGIN
+    MoveFunds(2001, 2002, 2500);
+END;
+/
