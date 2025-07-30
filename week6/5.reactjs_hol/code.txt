@@ -1,0 +1,68 @@
+CohortDetails.jsx
+
+import React from "react";
+import styles from "./CohortDetails.module.css";
+
+const CohortDetails = ({ name, status, startDate, endDate }) => {
+  const statusStyle = {
+    color: status.toLowerCase() === "ongoing" ? "green" : "blue",
+  };
+
+  return (
+    <div className={styles.box}>
+      <h3 style={statusStyle}>{status}</h3>
+      <dl>
+        <dt>Cohort Name:</dt>
+        <dd>{name}</dd>
+        <dt>Start Date:</dt>
+        <dd>{startDate}</dd>
+        <dt>End Date:</dt>
+        <dd>{endDate}</dd>
+      </dl>
+    </div>
+  );
+};
+
+export default CohortDetails;
+
+CohortDetails.module.css
+
+.box {
+  width: 300px;
+  display: inline-block;
+  margin: 10px;
+  padding: 10px 20px;
+  border: 1px solid black;
+  border-radius: 10px;
+}
+
+dt {
+  font-weight: 500;
+}
+
+App.js
+
+import React from "react";
+import CohortDetails from "./Components/CohortDetails";
+
+function App() {
+  return (
+    <div>
+      <CohortDetails
+        name="AI & ML Bootcamp"
+        status="Ongoing"
+        startDate="01-Jul-2025"
+        endDate="31-Aug-2025"
+      />
+      <CohortDetails
+        name="Web Dev Batch 1"
+        status="Completed"
+        startDate="01-Jan-2025"
+        endDate="28-Feb-2025"
+      />
+    </div>
+  );
+}
+
+export default App;
+

@@ -1,0 +1,65 @@
+CalculateScore.js
+
+import React from 'react';
+import '../Stylesheets/mystyle.css';
+
+function CalculateScore() {
+  const name = "Iswarya";
+  const school = "ABC Matriculation School";
+  const total = 450;
+  const goal = 500;
+  const average = (total / goal) * 100;
+
+  return (
+    <div className="score-container">
+      <h2>Student Score Details</h2>
+      <p><strong>Name:</strong> {name}</p>
+      <p><strong>School:</strong> {school}</p>
+      <p><strong>Total Score:</strong> {total}</p>
+      <p><strong>Goal:</strong> {goal}</p>
+      <p><strong>Average Score:</strong> {average.toFixed(2)}%</p>
+    </div>
+  );
+}
+
+mystyle.css 
+export default CalculateScore;
+
+.score-container {
+  background-color: #f2f2f2;
+  padding: 20px;
+  margin: 30px auto;
+  width: 50%;
+  border-radius: 10px;
+  box-shadow: 0 0 10px #ccc;
+  font-family: Arial, sans-serif;
+}
+
+.score-container h2 {
+  text-align: center;
+  color: #333;
+}
+
+.score-container p {
+  font-size: 18px;
+  margin: 10px 0;
+}
+
+
+App.js
+
+import React from 'react';
+import './Stylesheets/mystyle.css';
+import CalculateScore from './Components/CalculateScore';
+
+function App() {
+  return (
+    <div>
+      <h1>Score Calculator App</h1>
+      <CalculateScore />
+    </div>
+  );
+}
+
+export default App;
+

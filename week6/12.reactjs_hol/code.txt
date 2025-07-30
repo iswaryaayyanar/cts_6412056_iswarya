@@ -1,0 +1,94 @@
+GuestPage.js
+
+Copy
+Edit
+import React from 'react';
+
+function GuestPage() {
+  return (
+    <div>
+      <h2>Welcome Guest</h2>
+      <p>Please log in to book your tickets.</p>
+      <p>You can still browse the flight details below.</p>
+    </div>
+  );
+}
+
+export default GuestPage;
+
+UserPage.js
+
+Copy
+Edit
+import React from 'react';
+
+function UserPage() {
+  return (
+    <div>
+      <h2>Welcome User</h2>
+      <p>You are logged in. You can now book tickets.</p>
+    </div>
+  );
+}
+
+export default UserPage;
+
+
+FlightDetails.js
+
+Copy
+Edit
+import React from 'react';
+
+function FlightDetails() {
+  return (
+    <div>
+      <h3>Flight Details</h3>
+      <ul>
+        <li>Flight: AI 203 - Delhi to Mumbai - ₹3500</li>
+        <li>Flight: Indigo 112 - Bangalore to Chennai - ₹2800</li>
+        <li>Flight: Vistara 909 - Kolkata to Hyderabad - ₹4000</li>
+      </ul>
+    </div>
+  );
+}
+
+export default FlightDetails;
+
+App.js
+
+Copy
+Edit
+import React, { useState } from 'react';
+import GuestPage from './components/GuestPage';
+import UserPage from './components/UserPage';
+import FlightDetails from './components/FlightDetails';
+
+function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const handleLogin = () => setIsLoggedIn(true);
+  const handleLogout = () => setIsLoggedIn(false);
+
+  let page;
+  if (isLoggedIn) {
+    page = <UserPage />;
+  } else {
+    page = <GuestPage />;
+  }
+
+  return (
+    <div className="App">
+      <h1>Ticket Booking App</h1>
+      {isLoggedIn ? (
+        <button onClick={handleLogout}>Logout</button>
+      ) : (
+        <button onClick={handleLogin}>Login</button>
+      )}
+      {page}
+      <FlightDetails />
+    </div>
+  );
+}
+
+export default App;

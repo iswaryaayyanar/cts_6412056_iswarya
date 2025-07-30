@@ -1,0 +1,118 @@
+BookDetails.js
+
+import React from 'react';
+
+function BookDetails() {
+  const books = [
+    { id: 1, title: 'Clean Code', author: 'Robert C. Martin' },
+    { id: 2, title: 'You Don’t Know JS', author: 'Kyle Simpson' }
+  ];
+
+  return (
+    <div>
+      <h3>📚 Book Details</h3>
+      {books.length === 0 ? (
+        <p>No books available.</p> // Ternary rendering
+      ) : (
+        <ul>
+          {books.map(book => (
+            <li key={book.id}>
+              {book.title} by {book.author}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+}
+
+export default BookDetails;
+
+ BlogDetails.js
+
+import React from 'react';
+
+function BlogDetails({ showBlogs }) {
+  if (!showBlogs) return null; // Conditional rendering using early return
+
+  const blogs = [
+    { id: 1, title: 'React Basics', author: 'Jane Doe' },
+    { id: 2, title: 'Hooks in Depth', author: 'John Smith' }
+  ];
+
+  return (
+    <div>
+      <h3>📝 Blog Details</h3>
+      {blogs.map(blog => (
+        <div key={blog.id}>
+          <p>
+            <strong>{blog.title}</strong> - {blog.author}
+          </p>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+export default BlogDetails;
+
+CourseDetails.js
+
+import React from 'react';
+
+function CourseDetails({ isAdmin }) {
+  let content;
+
+  // Conditional rendering using if-else with element variable
+  if (isAdmin) {
+    content = (
+      <ul>
+        <li>Advanced React</li>
+        <li>Full Stack Development</li>
+      </ul>
+    );
+  } else {
+    content = <p>You need admin access to view courses.</p>;
+  }
+
+  return (
+    <div>
+      <h3>📘 Course Details</h3>
+      {content}
+    </div>
+  );
+}
+
+export default CourseDetails;
+
+ App.js
+import React, { useState } from 'react';
+import BookDetails from './components/BookDetails';
+import BlogDetails from './components/BlogDetails';
+import CourseDetails from './components/CourseDetails';
+
+function App() {
+  const [showBlogs, setShowBlogs] = useState(true);
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  return (
+    <div>
+      <h2>📖 Blogger App</h2>
+
+      <button onClick={() => setShowBlogs(prev => !prev)}>
+        {showBlogs ? 'Hide Blogs' : 'Show Blogs'}
+      </button>
+
+      <button onClick={() => setIsAdmin(prev => !prev)}>
+        {isAdmin ? 'Logout as Admin' : 'Login as Admin'}
+      </button>
+
+      <hr />
+      <BookDetails />
+      <BlogDetails showBlogs={showBlogs} />
+      <CourseDetails isAdmin={isAdmin} />
+    </div>
+  );
+}
+
+export default App;

@@ -1,0 +1,100 @@
+ListofPlayers.js
+import React from 'react';
+
+const ListofPlayers = () => {
+  const players = [
+    { name: "Rohit", score: 80 },
+    { name: "Virat", score: 95 },
+    { name: "Dhoni", score: 65 },
+    { name: "Jadeja", score: 70 },
+    { name: "Hardik", score: 40 },
+    { name: "Shubman", score: 78 },
+    { name: "Surya", score: 50 },
+    { name: "KL Rahul", score: 88 },
+    { name: "Iyer", score: 91 },
+    { name: "Bumrah", score: 30 },
+    { name: "Shami", score: 85 }
+  ];
+
+  // Using arrow function to filter scores below 70
+  const below70 = players.filter(player => player.score < 70);
+
+  return (
+    <div>
+      <h2>All Players</h2>
+      <ul>
+        {players.map((p, index) => (
+          <li key={index}>{p.name} - {p.score}</li>
+        ))}
+      </ul>
+
+      <h3>Players with score below 70</h3>
+      <ul>
+        {below70.map((p, index) => (
+          <li key={index}>{p.name} - {p.score}</li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+export default ListofPlayers;
+
+IndianPlayers.js
+
+import React from 'react';
+
+const IndianPlayers = () => {
+  const T20players = ['Rohit', 'Virat', 'Surya', 'KL Rahul', 'Bumrah'];
+  const RanjiTrophyPlayers = ['Shami', 'Dhawan', 'Pujara', 'Iyer', 'Ashwin'];
+
+  // Merging arrays using spread operator
+  const allPlayers = [...T20players, ...RanjiTrophyPlayers];
+
+  // Destructuring even and odd players
+  const oddTeam = allPlayers.filter((_, index) => index % 2 !== 0);
+  const evenTeam = allPlayers.filter((_, index) => index % 2 === 0);
+
+  return (
+    <div>
+      <h2>Odd Team Players</h2>
+      <ul>
+        {oddTeam.map((name, idx) => (
+          <li key={idx}>{name}</li>
+        ))}
+      </ul>
+
+      <h2>Even Team Players</h2>
+      <ul>
+        {evenTeam.map((name, idx) => (
+          <li key={idx}>{name}</li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+export default IndianPlayers;
+
+
+App.js
+
+
+import React from 'react';
+import ListofPlayers from './Components/ListofPlayers';
+import IndianPlayers from './Components/IndianPlayers';
+
+function App() {
+  const flag = true; // Change this to false to switch component
+
+  return (
+    <div className="App">
+      <h1>Welcome to Cricket App</h1>
+      {flag ? <ListofPlayers /> : <IndianPlayers />}
+    </div>
+  );
+}
+
+export default App;
+
+

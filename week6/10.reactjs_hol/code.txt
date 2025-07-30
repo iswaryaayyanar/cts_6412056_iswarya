@@ -1,0 +1,84 @@
+App.js
+
+import React from 'react';
+import './App.css';
+
+function App() {
+    const singleOffice = {
+    name: "Elite Office Space",
+    rent: 55000,
+    address: "Plot No. 12, Tech Park, Bengaluru"
+  };
+
+  
+  const officeList = [
+    {
+      name: "Startup Hub",
+      rent: 45000,
+      address: "Indiranagar, Bangalore",
+      image: "https://via.placeholder.com/200x150?text=Startup+Hub"
+    },
+    {
+      name: "Corporate Suite",
+      rent: 70000,
+      address: "MG Road, Bangalore",
+      image: "https://via.placeholder.com/200x150?text=Corporate+Suite"
+    },
+    {
+      name: "EcoSpace Offices",
+      rent: 60000,
+      address: "Whitefield, Bangalore",
+      image: "https://via.placeholder.com/200x150?text=EcoSpace"
+    }
+  ];
+
+  return (
+    <div className="App">
+      <h1>Office Space Rental App</h1>
+      <div className="office-list">
+        {officeList.map((office, index) => (
+          <div key={index} className="office-card">
+            <img src={office.image} alt={office.name} />
+            <h2>{office.name}</h2>
+            <p>{office.address}</p>
+            <p style={{ color: office.rent < 60000 ? 'red' : 'green' }}>
+              Rent: ₹{office.rent}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export default App;
+
+App.css
+
+.App {
+  text-align: center;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.office-list {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.office-card {
+  border: 1px solid #ccc;
+  padding: 15px;
+  width: 220px;
+  border-radius: 8px;
+  box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+}
+
+.office-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+

@@ -1,0 +1,65 @@
+Home.js
+ 
+import React from 'react';
+
+function Home() {
+  return (
+    <div>
+      <h2>Welcome to the Home Page</h2>
+      <p>This is the Home component.</p>
+    </div>
+  );
+}
+
+export default Home;
+
+About.js
+
+import React from 'react';
+
+function About() {
+  return (
+    <div>
+      <h2>About Us</h2>
+      <p>This is the About component.</p>
+    </div>
+  );
+}
+
+export default About;
+
+Contact.js
+
+import React from 'react';
+
+function Contact() {
+  return (
+    <div>
+      <h2>Contact Us</h2>
+      <p>This is the Contact component.</p>
+    </div>
+  );
+}
+
+export default Contact;
+
+App.js
+
+import React from 'react';
+import Home from './Components/Home';
+import About from './About';
+import Contact from './Contact';
+
+function App() {
+  return (
+    <div>
+      <h1>Student Application</h1>
+      <Home />
+      <About />
+      <Contact />
+    </div>
+  );
+}
+
+export default App;
+
